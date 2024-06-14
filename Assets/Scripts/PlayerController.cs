@@ -68,7 +68,6 @@ public class PlayerController : MonoBehaviour
                     rb.isKinematic = false;
                 }
                 rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
-                Debug.Log("Thrusters used");
                 if (!audioSource.isPlaying)
                 {
                     audioSource.PlayOneShot(mainEngine);
@@ -93,7 +92,6 @@ public class PlayerController : MonoBehaviour
         {
             yield return new WaitForFixedUpdate();
             fuelAmount -= 0.01f;
-            Debug.Log("Fuel amount: " + fuelAmount);
         }
     }
 
@@ -104,7 +102,6 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
                 ApplyRotation(rotationThrust);
-                Debug.Log("Left direction");
                 if (!rightThrusterParticles.isPlaying)
                 {
                     rightThrusterParticles.Play();
@@ -117,7 +114,6 @@ public class PlayerController : MonoBehaviour
                 {
                     leftThrusterParticles.Play();
                 }
-                Debug.Log("Right direction");
             }
             else
             {

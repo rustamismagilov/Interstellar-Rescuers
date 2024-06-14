@@ -44,18 +44,15 @@ public class CollisionController : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Respawn":
-                Debug.Log("Start point");
                 break;
             case "Obstacles":
                 PlayerCrash();
                 StartCoroutine(Respawn());
-                Debug.Log("Obstacle hit");
                 playerController.hasCrashed = true;
                 break;
             default:
                 PlayerCrash();
                 StartCoroutine(Respawn());
-                Debug.Log("Ground Hit");
                 playerController.hasCrashed = true;
                 break;
         }
@@ -69,10 +66,8 @@ public class CollisionController : MonoBehaviour
                 Destroy(other.gameObject);
                 playerController.fuelAmount = Mathf.Min(playerController.fuelAmount + 100f, maxFuelAmount);
                 audioSource.PlayOneShot(fuelSound);
-                Debug.Log("Picked fuel");
                 break;
             case "Finish":
-                Debug.Log("Finish point");
                 finishParticles.Play();
                 audioSource.PlayOneShot(finishAudio);
                 playerController.rb.isKinematic = true;
