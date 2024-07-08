@@ -52,6 +52,7 @@ public class StartAnim : MonoBehaviour
         yield return new WaitForSeconds(timePlayerAnim);
         playerRb.useGravity = true;
         Destroy(gameObject);
+        playerController.enabled = true;
     }
 
     private IEnumerator RotateAndSizeUpObject()

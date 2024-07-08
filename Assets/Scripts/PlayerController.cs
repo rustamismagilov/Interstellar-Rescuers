@@ -43,14 +43,13 @@ public class PlayerController : MonoBehaviour
             ambience.volume = 0.25f;
             ambience.Play();
         }
-
     }
 
     private void Update()
     {
         ProcessRotation();
         ProcessThrusters();
-        if(saveValues != null)
+        if (saveValues != null)
         {
             audioSource.volume = saveValues.savedVolume;
             ambience.volume = saveValues.savedVolume;
@@ -61,7 +60,23 @@ public class PlayerController : MonoBehaviour
     {
         if (!hasCrashed && fuelAmount > 0)
         {
-            if (Input.GetKey(KeyCode.Space))
+            bool thrusting = Input.GetKey(KeyCode.Space);
+
+            // Check for touch input for thrusting
+            for (int i = 0; i < Input.touchCount; i++)
+            {
+                Touch touch = Input.GetTouch(i);
+                if (touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
+                {
+                    if (touch.position.y > Screen.height / 2)
+                    {
+                        thrusting = true;
+                        break;
+                    }
+                }
+            }
+
+            if (thrusting)
             {
                 if (rb.isKinematic == true)
                 {
@@ -99,7 +114,30 @@ public class PlayerController : MonoBehaviour
     {
         if (!hasCrashed)
         {
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            bool rotateLeft = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
+            bool rotateRight = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
+
+            // Check for touch input for rotation
+            for (int i = 0; i < Input.touchCount; i++)
+            {
+                Touch touch = Input.GetTouch(i);
+                if (touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
+                {
+                    if (touch.position.y < Screen.height / 2)
+                    {
+                        if (touch.position.x < Screen.width / 2)
+                        {
+                            rotateLeft = true;
+                        }
+                        else
+                        {
+                            rotateRight = true;
+                        }
+                    }
+                }
+            }
+
+            if (rotateLeft)
             {
                 ApplyRotation(rotationThrust);
                 if (!rightThrusterParticles.isPlaying)
@@ -107,7 +145,7 @@ public class PlayerController : MonoBehaviour
                     rightThrusterParticles.Play();
                 }
             }
-            else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            else if (rotateRight)
             {
                 ApplyRotation(-rotationThrust);
                 if (!leftThrusterParticles.isPlaying)
