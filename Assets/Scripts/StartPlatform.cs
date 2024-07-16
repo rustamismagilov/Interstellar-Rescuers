@@ -21,11 +21,17 @@ public class StartPlatform : MonoBehaviour
 
     bool Entered;
 
+    private void OnEnable()
+    {
+        playerController.enabled = false;
+    }
+
     private void Awake()
     {
         uIController = FindObjectOfType<UIController>();
         playerController = FindObjectOfType<PlayerController>();
         visualChild = transform.GetChild(0);
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,18 +41,17 @@ public class StartPlatform : MonoBehaviour
             Vector3 playerPos = other.gameObject.transform.position;
             Vector3 dockingPos = gameObject.transform.parent.position;
 
-            other.gameObject.transform.position = new Vector3(dockingPos.x, playerPos.y, dockingPos.z);
-            other.gameObject.transform.rotation = Quaternion.identity;
-            playerController.rb.isKinematic = true;
-            audioSource.PlayOneShot(landingSound);
-            playerController.enabled = false;
+            other.gameObject.transform.SetPositionAndRotation(new Vector3(dockingPos.x, playerPos.y, dockingPos.z), Quaternion.identity);
+            //playerController.rb.isKinematic = true;
+            //audioSource.PlayOneShot(landingSound);
+            //playerController.enabled = false;
             if (humansAnimator != null)
             {
                 humansAnimator.SetTrigger("RescueAnim");
             }
             StartCoroutine(ShrinkPlatformer());
         }
-        else if(other.gameObject.tag == "Player" && Entered == true)
+        else if (other.gameObject.CompareTag("Player") && Entered == true)
         {
             Destroy(transform.parent.gameObject);
             uIController.rescuedOnce = false;
@@ -68,9 +73,10 @@ public class StartPlatform : MonoBehaviour
 
         visualChild.localScale = finalScale;
         Destroy(humans);
-        audioSource.PlayOneShot(rescueSound);
+        //audioSource.PlayOneShot(rescueSound);
         uIController.RescueUpdate();
         playerController.enabled = true;
+        //playerController.rb.isKinematic = false;
         Entered = true;
     }
 }
