@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1466,6 +1466,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2291099026982891250, guid: c13308b3065a7436dbe574c92e58011b, type: 3}
+      propertyPath: speed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4312421906003616255, guid: c13308b3065a7436dbe574c92e58011b, type: 3}
       propertyPath: m_Name
       value: MOVING_OBSTACLE (3)
@@ -1480,7 +1484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8360038761807606016, guid: c13308b3065a7436dbe574c92e58011b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12
+      value: -13.97
       objectReference: {fileID: 0}
     - target: {fileID: 8360038761807606016, guid: c13308b3065a7436dbe574c92e58011b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1914,7 +1918,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2291099026982891250, guid: c13308b3065a7436dbe574c92e58011b, type: 3}
       propertyPath: speed
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2291099026982891250, guid: c13308b3065a7436dbe574c92e58011b, type: 3}
       propertyPath: distance
