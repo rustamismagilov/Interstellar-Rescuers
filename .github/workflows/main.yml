@@ -79,6 +79,9 @@ jobs:
           set -e
           BUILD_PATH="build/WebGL/WebGL"
 
+          WIDTH=$(grep 'defaultScreenWidthWeb:' ProjectSettings/ProjectSettings.asset | sed 's/.*: //')
+          HEIGHT=$(grep 'defaultScreenHeightWeb:' ProjectSettings/ProjectSettings.asset | sed 's/.*: //')
+
           sudo chown -R $USER:$USER "build/WebGL" || true
           chmod -R u+w "build/WebGL" || true
 
@@ -88,6 +91,8 @@ jobs:
             -e "s|{{COMPANY_NAME}}|${COMPANY_NAME}|g" \
             -e "s|{{PRODUCT_NAME}}|${PRODUCT_NAME}|g" \
             -e "s|{{PRODUCT_VERSION}}|${PRODUCT_VERSION}|g" \
+            -e "s|{{WIDTH}}|${WIDTH}|g" \
+            -e "s|{{HEIGHT}}|${HEIGHT}|g" \
             "$BUILD_PATH/index.html"
 
           mv "$BUILD_PATH"/* "build/WebGL/" || true
